@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\FileUpload;
 
 class PostResource extends Resource
 {
@@ -87,3 +88,12 @@ class PostResource extends Resource
         ];
     }
 }
+
+
+FileUpload::make('hero_image')
+    ->disk('public') // uses storage/app/public
+    ->directory('posts') // folder for post images
+    ->image()
+    ->maxSize(2048) // optional: 2MB limit
+    ->required() // make it mandatory if needed
+    ->label('Hero Image');

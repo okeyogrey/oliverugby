@@ -3,7 +3,7 @@
 @section('content')
 <section class="py-12 bg-gray-50">
     <div class="container mx-auto px-4">
-        <h1 class="text-4xl font-bold mb-8">Latest News</h1>
+        <!-- <h1 class="text-4xl font-bold mb-8">Latest News</h1> -->
         <div class="grid md:grid-cols-3 gap-6">
             @foreach($posts as $post)
                 <a href="{{ route('news.show', $post) }}" 

@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('gallery_images', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('banner')->nullable();
-            $table->text('description')->nullable();
-            $table->dateTime('start_at')->nullable();
-            $table->dateTime('end_at')->nullable();
-            $table->string('location')->nullable();
+            $table->string('image_path');
+            $table->string('category')->nullable(); // e.g., "Match", "Training"
             $table->timestamps();
-            
         });
-
     }
 
     /**
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('gallery_images');
     }
 };

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('opponent')->nullable();
+            $table->string('poster')->nullable();
             $table->dateTime('match_at')->nullable();
             $table->unsignedSmallInteger('our_score')->nullable();
             $table->unsignedSmallInteger('opponent_score')->nullable();

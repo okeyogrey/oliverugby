@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     protected $fillable = [
-        'opponent',
+        'home_team',
+        'away_team',
+        'poster',
         'match_at',
-        'our_score',
-        'opponent_score',
+        'home_score',
+        'away_score',
         'venue',
+        'notes',
     ];
 
     protected $casts = [

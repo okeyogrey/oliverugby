@@ -10,11 +10,11 @@ class GameController extends Controller
     {
         $upcomingGames = Game::where('match_at', '>=', now())
             ->orderBy('match_at', 'asc')
-            ->get();
+            ->paginate(5, ['*'], 'upcoming_page'); // separate page param
 
         $pastGames = Game::where('match_at', '<', now())
             ->orderBy('match_at', 'desc')
-            ->get();
+            ->paginate(5, ['*'], 'past_page'); // separate page param
 
         return view('games.index', compact('upcomingGames', 'pastGames'));
     }

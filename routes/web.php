@@ -6,58 +6,48 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DonateController;
+use App\Http\Controllers\GalleryController;
 
-Route::get('/', function () {
-    $latestPosts = \App\Models\Post::latest()->take(3)->get();
-    $upcomingEvents = \App\Models\Event::where('start_at', '>=', now())->orderBy('start_at')->take(3)->get();
-    $nextGame = \App\Models\Game::where('match_at', '>=', now())->orderBy('match_at')->first();
-    $sponsors = \App\Models\Sponsor::all();
+// Home
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    return view('welcome', compact('latestPosts', 'upcomingEvents', 'nextGame', 'sponsors'));
-});
-
-Route::get('/', [HomeController::class, 'index']);
-
+// Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
+// News (Posts)
 Route::get('/news', [PostController::class, 'index'])->name('posts.index');
 Route::get('/news/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
+// Games
 Route::get('/games', [GameController::class, 'index'])->name('games.index');
 Route::get('/games/{game}', [GameController::class, 'show'])->name('games.show');
 
-Route::get('/news', function () {
-    $posts = \App\Models\Post::latest()->paginate(9);
-    return view('news.index', compact('posts'));
-})->name('news.index');
+//About Us
+Route::view('/about', 'about')->name('about');
 
-Route::get('/events', function () {
-    $events = \App\Models\Event::orderBy('start_at', 'asc')->paginate(9);
-    return view('events.index', compact('events'));
-})->name('events.index');
+//Donate
+Route::get('/donate', [DonateController::class, 'index'])->name('donate');
+Route::post('/donate', [DonateController::class, 'process'])->name('donate.process');
 
-Route::get('/games', function () {
-    $games = \App\Models\Game::orderBy('match_at', 'desc')->paginate(10);
-    return view('games.index', compact('games'));
-})->name('games.index');
+//Gallery
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
-Route::get('/news/{post}', function (\App\Models\Post $post) {
-    return view('news.show', compact('post'));
-})->name('news.show');
+// Why Partner With Us page
+Route::get('/why-partner-with-us', function () {
+    return view('why-partner');
+})->name('why-partner');
 
-Route::get('/events/{event}', function (\App\Models\Event $event) {
-    return view('events.show', compact('event'));
-})->name('events.show');
+// Sponsorship kit form handler
+Route::post('/sponsor-request', [App\Http\Controllers\SponsorController::class, 'requestKit'])->name('sponsor.request');
 
-Route::get('/games/{game}', function (\App\Models\Game $game) {
-    return view('games.show', compact('game'));
-})->name('games.show');
-
+// Dashboard (auth)
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Profile (auth)
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

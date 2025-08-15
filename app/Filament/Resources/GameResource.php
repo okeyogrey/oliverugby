@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GameResource\Pages;
-use App\Filament\Resources\GameResource\RelationManagers;
 use App\Models\Game;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GameResource extends Resource
 {
@@ -23,16 +20,39 @@ class GameResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('opponent')->required()->maxLength(255),
+                Forms\Components\TextInput::make('home_team')
+                    ->label('Home Team')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('away_team')
+                    ->label('Away Team')
+                    ->required()
+                    ->maxLength(255),
+
                 Forms\Components\FileUpload::make('poster')
                     ->directory('games')
+                    ->disk('public')
                     ->image()
                     ->maxSize(2048),
-                Forms\Components\DateTimePicker::make('match_at')->required(),
-                Forms\Components\TextInput::make('score_home')->numeric(),
-                Forms\Components\TextInput::make('score_away')->numeric(),
-                Forms\Components\TextInput::make('venue')->maxLength(255),
-                Forms\Components\Textarea::make('notes'),
+
+                Forms\Components\DateTimePicker::make('match_at')
+                    ->required(),
+
+                Forms\Components\TextInput::make('home_score')
+                    ->numeric()
+                    ->label('Home Team Score'),
+
+                Forms\Components\TextInput::make('away_score')
+                    ->numeric()
+                    ->label('Away Team Score'),
+
+                Forms\Components\TextInput::make('venue')
+                    ->maxLength(255),
+
+                Forms\Components\Textarea::make('notes')
+                    ->rows(4)
+                    ->label('Match Notes'),
             ]);
     }
 
@@ -40,31 +60,49 @@ class GameResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('opponent')
+                Tables\Columns\ImageColumn::make('poster')
+                    ->disk('public')
+                    ->label('Poster')
+                    ->height(50)
+                    ->width(50)
+                    ->circular(),
+
+                Tables\Columns\TextColumn::make('home_team')
+                    ->label('Home')
                     ->searchable(),
+
+                Tables\Columns\TextColumn::make('away_team')
+                    ->label('Away')
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('match_at')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('our_score')
+
+                Tables\Columns\TextColumn::make('home_score')
                     ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('opponent_score')
+                    ->sortable()
+                    ->label('Home Score'),
+
+                Tables\Columns\TextColumn::make('away_score')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label('Away Score'),
+
                 Tables\Columns\TextColumn::make('venue')
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -77,9 +115,7 @@ class GameResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

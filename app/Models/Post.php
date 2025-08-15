@@ -13,6 +13,7 @@ class Post extends Model
         'body',
         'image',
         'published_at',
+        'hero_image',
     ];
 
     protected $casts = [

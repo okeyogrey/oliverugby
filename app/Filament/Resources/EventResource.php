@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\FileUpload;
 
 class EventResource extends Resource
 {
@@ -27,6 +28,7 @@ class EventResource extends Resource
                 Forms\Components\FileUpload::make('banner')
                     ->directory('events')
                     ->image()
+                    ->required()
                     ->maxSize(2048),
                 Forms\Components\Textarea::make('description')->required(),
                 Forms\Components\DateTimePicker::make('start_at')->required(),
