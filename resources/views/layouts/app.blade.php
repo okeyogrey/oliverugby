@@ -53,6 +53,7 @@
         <div x-show="open" @click.away="open = false" 
              x-transition 
              class="absolute left-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg z-50">
+            <a href="{{ route('about') }}" class="block px-4 py-2 hover:bg-gray-100">Who We Are</a>
             <a href="{{ route('events.index') }}" class="block px-4 py-2 hover:bg-gray-100">Events</a>
             <a href="{{ route('gallery') }}" class="block px-4 py-2 hover:bg-gray-100">Gallery</a>
             <a href="{{ route('why-partner') }}" class="block px-4 py-2 hover:bg-gray-100">Why Partner With Us</a>
@@ -110,6 +111,7 @@
                 </svg>
             </button>
             <div x-show="subOpen" x-transition class="ml-4 mt-2 space-y-1">
+                <a href="{{ route('about') }}" class="block hover:text-gray-300 transition">Who We Are</a>
                 <a href="{{ route('events.index') }}" class="block hover:text-gray-300 transition">Events</a>
                 <a href="{{ route('gallery') }}" class="block hover:text-gray-300 transition">Gallery</a>
                 <a href="{{ route('why-partner') }}" class="block hover:text-gray-300 transition">Why Partner With Us</a>
