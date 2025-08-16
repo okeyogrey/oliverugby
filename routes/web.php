@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DonateController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\SponsorController;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -20,18 +21,24 @@ Route::get('/events/{event}', [EventController::class, 'show'])->name('events.sh
 Route::get('/news', [PostController::class, 'index'])->name('posts.index');
 Route::get('/news/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
+// Likes
+Route::post('/news/{id}/like', [PostController::class, 'like'])->name('posts.like')->middleware('auth');
+
+// Comments
+Route::post('/news/{id}/comment', [PostController::class, 'comment'])->name('posts.comment')->middleware('auth');
+
 // Games
 Route::get('/games', [GameController::class, 'index'])->name('games.index');
 Route::get('/games/{game}', [GameController::class, 'show'])->name('games.show');
 
-//About Us
+// About Us
 Route::view('/about', 'about')->name('about');
 
-//Donate
+// Donate
 Route::get('/donate', [DonateController::class, 'index'])->name('donate');
 Route::post('/donate', [DonateController::class, 'process'])->name('donate.process');
 
-//Gallery
+// Gallery
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 // Why Partner With Us page
@@ -40,7 +47,7 @@ Route::get('/why-partner-with-us', function () {
 })->name('why-partner');
 
 // Sponsorship kit form handler
-Route::post('/sponsor-request', [App\Http\Controllers\SponsorController::class, 'requestKit'])->name('sponsor.request');
+Route::post('/sponsor-request', [SponsorController::class, 'requestKit'])->name('sponsor.request');
 
 // Dashboard (auth)
 Route::get('/dashboard', function () {
