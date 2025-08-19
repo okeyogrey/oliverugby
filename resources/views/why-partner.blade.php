@@ -1,12 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+@include('components.page-hero', [
+    'title' => 'Why Patner With Us',
+    'background' => 'images/about-banner.jpg',
+    'subtitle' => 'Building a legacy on and off the pitch'
+])
+
+
+
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 max-w-6xl">
 
         <!-- Heading -->
         <div class="mb-12 text-center">
-            <h1 class="text-4xl font-bold text-green-800 mb-4">Why Partner With Us</h1>
+            <!-- <h1 class="text-4xl font-bold text-green-800 mb-4">Why Partner With Us</h1> -->
             <p class="text-lg text-gray-700 max-w-3xl mx-auto">
                 Partnering with Olive Rugby means joining a movement to develop talent, promote sportsmanship,
                 and create life-changing opportunities through rugby. Your support helps us run community programs,

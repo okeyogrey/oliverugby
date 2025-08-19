@@ -2,124 +2,146 @@
 
 @section('content')
 
-<!-- Hero Section -->
-<div class="relative overflow-hidden h-[70vh] md:h-[85vh]" 
-     x-data="{ 
-         heroScroll: 0,
-         currentIndex: 0,
-         images: [
-             '{{ asset('images/hero.png') }}',
-             '{{ asset('images/hero2.png') }}',
-             '{{ asset('images/hero3.png') }}'
-         ],
-         titles: [
-             'Olive Rugby',
-             'Home Of The Champs',
-             'Legacy In Every Tackle'
-         ],
-         subtitles: [
-             'Legacy In Every Tackle',
-             'Fostering Talent & Discipline',
-             'Inspiring Youth & Empowering Communities'
-         ],
-         startSlider() {
-             setInterval(() => {
-                 this.nextSlide();
-             }, 5000);
-         },
-         nextSlide() {
-             this.fadeOutText(() => {
-                 this.currentIndex = (this.currentIndex + 1) % this.images.length;
-                 this.fadeInText();
-             });
-         },
-         prevSlide() {
-             this.fadeOutText(() => {
-                 this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-                 this.fadeInText();
-             });
-         },
-         goToSlide(index) {
-             this.fadeOutText(() => {
-                 this.currentIndex = index;
-                 this.fadeInText();
-             });
-         },
-         fadeOutText(callback) {
-             const textBox = this.$refs.textContent;
-             textBox.classList.add('opacity-0', 'translate-y-6');
-             setTimeout(() => {
-                 callback();
-             }, 500);
-         },
-         fadeInText() {
-             const textBox = this.$refs.textContent;
-             setTimeout(() => {
-                 textBox.classList.remove('opacity-0', 'translate-y-6');
-             }, 50);
-         },
-         handleSwipe() {
-             let startX = 0;
-             let endX = 0;
+<!-- Hero Section with Infinite 3D Cover Flow -->
+<div class="relative bg-black h-[80vh] flex items-center justify-center overflow-hidden"
+     x-data="coverflowCarousel"
+     x-init="startAutoSlide()">
 
-             this.$el.addEventListener('touchstart', e => {
-                 startX = e.touches[0].clientX;
-             });
+    <!-- Slides container -->
+    <div class="relative flex items-center justify-center w-full h-full perspective-1000">
+        <template x-for="(image, index) in images" :key="index">
+            <div class="absolute transition-transform duration-700 ease-in-out flex flex-col items-center"
+                 :style="getSlideStyle(index)">
+                
+                <!-- Image -->
+                <img :src="image" class="rounded-xl shadow-lg w-[65vw] md:w-[28vw] h-[55vh] object-cover" />
 
-             this.$el.addEventListener('touchend', e => {
-                 endX = e.changedTouches[0].clientX;
-                 let diff = startX - endX;
+                <!-- Reflection -->
+                <div class="mt-1 overflow-hidden w-full flex justify-center"
+                     style="transform: scaleY(-1); opacity: 0.65;"> <!-- made more reflective -->
+                    <img :src="image"
+                         class="rounded-xl w-[65vw] md:w-[28vw] h-[15vh] object-cover"
+                         style="mask-image: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+                                -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);" />
+                </div>
 
-                 if (Math.abs(diff) > 50) {
-                     if (diff > 0) {
-                         this.nextSlide();
-                     } else {
-                         this.prevSlide();
-                     }
-                 }
-             });
-         }
-     }" 
-     x-init="
-         window.addEventListener('scroll', () => heroScroll = window.scrollY);
-         startSlider();
-         handleSwipe();
-     ">
-
-    <!-- Slider container -->
-    <div class="absolute inset-0 flex transition-transform duration-1000 ease-in-out"
-         :style="`transform: translateX(-${currentIndex * 100}%);`">
-        
-        <template x-for="image in images" :key="image">
-            <div class="flex-shrink-0 w-full h-full bg-center bg-cover"
-                 :style="`background-image: url('${image}'); background-position-y: ${heroScroll * 0.4}px; transform: scale(${1 + heroScroll / 3000});`">
+                <!-- Hero Titles & CTA only for active center image -->
+                <div x-show="currentIndex === index"
+                     class="absolute bottom-16 text-center text-white z-30"
+                     x-transition>
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4" x-text="titles[index]"></h1>
+                    <p class="text-lg md:text-xl mb-6" x-text="subtitles[index]"></p>
+                    <a href="{{ route('games.index') }}" 
+                       class="bg-white text-green-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
+                       View Fixtures
+                    </a>
+                </div>
             </div>
         </template>
     </div>
 
-    <!-- Text content with cinematic fade -->
-    <div class="relative z-10 flex flex-col items-center justify-center text-center h-full text-white transition-all duration-500 ease-out"
-         :style="`opacity: ${1 - heroScroll / 300}; transform: translateY(${heroScroll / 5}px);`"
-         x-ref="textContent"
-         data-aos="fade-up">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4" x-text="titles[currentIndex]"></h1>
-        <p class="text-lg md:text-xl mb-6" x-text="subtitles[currentIndex]"></p>
-        <a href="{{ route('games.index') }}" 
-           class="bg-white text-green-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition" 
-           style="animation-delay: 0.4s;">
-           View Fixtures
-        </a>
-    </div>
+    <!-- Navigation arrows -->
+    <!-- <button @click="prevSlide"
+        class="absolute left-4 md:left-12 text-white text-3xl bg-black/40 hover:bg-black/60 rounded-full p-3 z-20">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button @click="nextSlide"
+        class="absolute right-4 md:right-12 text-white text-3xl bg-black/40 hover:bg-black/60 rounded-full p-3 z-20">
+        <i class="fas fa-chevron-right"></i>
+    </button> -->
 
-    <!-- Navigation dots -->
-    <div class="absolute bottom-6 left-0 right-0 flex justify-center space-x-3 z-20">
+    <!-- Pagination dots -->
+    <div class="absolute bottom-6 flex space-x-3 z-30">
         <template x-for="(image, index) in images" :key="index">
-            <button @click="goToSlide(index)" 
-                    :class="currentIndex === index ? 'bg-white' : 'bg-white/50'" 
-                    class="w-3 h-3 rounded-full transition-colors duration-300"></button>
+            <button @click="goToSlide(index)"
+                :class="currentIndex === index ? 'bg-white scale-125' : 'bg-gray-500'"
+                class="w-3 h-3 rounded-full transition-all duration-300"></button>
         </template>
     </div>
 </div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('coverflowCarousel', () => ({
+        // Start at image 4 (index 3)
+        currentIndex: 3,
+        images: [
+            "{{ asset('images/hero2.png') }}",
+            "{{ asset('images/hero2.png') }}",
+            "{{ asset('images/hero2.png') }}",
+            "{{ asset('images/hero2.png') }}", // center/start image
+            "{{ asset('images/hero2.png') }}",
+            "{{ asset('images/hero2.png') }}",
+            "{{ asset('images/hero2.png') }}"
+        ],
+        titles: [
+            "Brotherhood in Rugby",
+            "Power & Discipline",
+            "Olive Rising",
+            "Home of the Champs",
+            "Legacy in Every Tackle",
+            "Inspiring the Youth",
+            "Building Champs"
+        ],
+        subtitles: [
+            "Strength in unity, victory in passion.",
+            "Discipline builds winners, on and off the pitch.",
+            "A new generation of rugby warriors.",
+            "Where champions are made and celebrated.",
+            "Every tackle carries our heritage.",
+            "Empowering youth through rugby and leadership.",
+            "From grassroots to greatness."
+        ],
+
+        getSlideStyle(index) {
+    const total = this.images.length;
+    let offset = (index - this.currentIndex + total) % total;
+    if (offset > total / 2) offset -= total;
+
+    const absOffset = Math.abs(offset);
+
+    // Detect screen width for responsive spacing
+    const isMobile = window.innerWidth < 768;
+    const baseTranslate = isMobile ? 120 : 280; // narrower spacing on mobile
+    const baseRotate = isMobile ? 30 : 45;      // less dramatic tilt on mobile
+
+    const scale = 1 - absOffset * 0.15;
+    const rotateY = offset * -baseRotate;
+    const translateX = offset * baseTranslate;
+    const zIndex = 100 - absOffset;
+
+    return `
+        transform: translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg);
+        z-index: ${zIndex};
+        opacity: ${absOffset > 3 ? 0 : 1};
+    `;
+},
+
+
+        nextSlide() {
+            this.currentIndex = (this.currentIndex + 1) % this.images.length;
+        },
+        prevSlide() {
+            this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+        },
+        goToSlide(index) {
+            this.currentIndex = index;
+        },
+        startAutoSlide() {
+            setInterval(() => {
+                this.nextSlide();
+            }, 5000);
+        }
+    }))
+});
+</script>
+
+<style>
+.perspective-1000 {
+    perspective: 1000px;
+}
+</style>
+
 
 
 <!-- About Us Section -->
@@ -277,6 +299,26 @@ document.addEventListener('alpine:init', () => {
     animation: scroll 25s linear infinite;
 }
 </style>
+
+
+
+<!-- Merchandise -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <h2 class="text-3xl font-bold text-center mb-12">Featured Merchandise</h2>
+        
+        <div class="flex space-x-6 overflow-x-auto pb-4">
+            @foreach($featuredProducts as $product)
+                <div class="bg-gray-50 shadow rounded-lg p-4 min-w-[250px]">
+                    <img src="{{ asset('storage/' . $product->image) }}" class="w-full h-48 object-cover rounded mb-3">
+                    <h3 class="font-bold text-center">{{ $product->title }}</h3>
+                    <p class="text-green-800 font-semibold text-center">KES {{ number_format($product->price, 2) }}</p>
+                    <a href="{{ route('shop.show', $product->id) }}" class="block text-center text-green-700 hover:underline">Shop Now →</a>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
 
 
 

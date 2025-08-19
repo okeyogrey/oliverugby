@@ -6,6 +6,7 @@ use App\Models\Sponsor;
 use App\Models\Post;
 use App\Models\Event;
 use App\Models\Game;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -23,12 +24,14 @@ class HomeController extends Controller
             ->whereNotNull('opponent') // Ensure opponent name exists
             ->orderBy('match_at', 'asc')
             ->first();
+        
+        $featuredProducts = Product::latest()->take(5)->get();
 
         // Optional: if no upcoming game, set to null so Blade doesn't show it
         if ($nextGame && !$nextGame->match_at) {
             $nextGame = null;
         }
 
-        return view('home', compact('sponsors', 'latestPosts', 'upcomingEvents', 'nextGame'));
+        return view('home', compact('sponsors', 'latestPosts', 'upcomingEvents', 'nextGame', 'featuredProducts'));
     }
 }

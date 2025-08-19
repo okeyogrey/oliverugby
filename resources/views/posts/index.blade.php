@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+@include('components.page-hero', [
+    'title' => 'Blog',
+    'background' => 'images/about-banner.jpg',
+    'subtitle' => 'Building a legacy on and off the pitch'
+])
+
+
 <section class="py-8">
     <div class="flex items-end justify-between mb-6">
         <!-- <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight" data-aos="fade-right">
@@ -19,8 +27,16 @@
         </form>
     </div>
 
+    <div class="flex flex-wrap gap-3 justify-center mb-8">
+    <a href="?category=community" class="px-4 py-1 rounded-full border border-green-700 text-green-700 hover:bg-green-700 hover:text-white text-sm">Community</a>
+    <a href="?category=training" class="px-4 py-1 rounded-full border border-green-700 text-green-700 hover:bg-green-700 hover:text-white text-sm">Training</a>
+    <a href="?category=events" class="px-4 py-1 rounded-full border border-green-700 text-green-700 hover:bg-green-700 hover:text-white text-sm">Events</a>
+</div>
+
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
         @forelse($posts as $post)
+        
             <article class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 @if($post->hero_image)
                     <a href="{{ route('posts.show', ['post' => $post->slug]) }}">
@@ -56,4 +72,13 @@
         {{ $posts->links() }}
     </div>
 </section>
+<section class="py-12 bg-green-800 text-white text-center rounded-xl mt-12">
+    <h3 class="text-2xl font-bold mb-2">Never miss an update</h3>
+    <p class="mb-4 opacity-90">Get the latest Olive Rugby news delivered to your inbox.</p>
+    <form class="flex justify-center">
+        <input type="email" placeholder="Enter your email" class="px-4 py-2 rounded-l-lg focus:outline-none text-black">
+        <button class="bg-green-600 px-4 py-2 rounded-r-lg font-semibold hover:bg-green-700">Subscribe</button>
+    </form>
+</section>
+
 @endsection

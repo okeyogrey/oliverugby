@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olive Rugby</title>
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       integrity="sha512-uH1JrHnbYhhlQ9YvW5ZjZ0Y7SYvZmL38rTuSYYVQ1OJnOq1c+PR8xKbd6ZIdr1dnDCVXwX9s0kxU9xQtKOE8JQ=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
     <style>
         @keyframes popIn {
             0% { transform: scale(0.9) translateY(20px); opacity: 0; }
@@ -26,7 +30,7 @@
       x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 50)">
     
     <!-- Navbar -->
-<header :class="scrolled ? 'bg-green-900 py-2 shadow-lg' : 'bg-green-800 py-4 shadow-md'" 
+<header :class="scrolled ? 'bg-black py-2 shadow-lg' : 'bg-black py-4 shadow-md'" 
         class="text-white sticky top-0 z-50 transition-all duration-300" 
         data-aos="fade-down">
     <div class="container mx-auto px-4 flex justify-between items-center">
@@ -72,6 +76,11 @@
         <span class="absolute left-0 bottom-0 w-full h-0.5 bg-yellow-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
     </a>
 
+    <a href="{{ route('shop.index') }}" 
+       class="border border-yellow-500 text-yellow-400 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 hover:text-black transition">
+       <i class="fa-solid fa-cart-shopping"></i> Shop
+    </a>
+
     <a href="{{ route('donate') }}" 
        class="bg-yellow-500 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition">
         Donate
@@ -98,7 +107,7 @@
     </div>
 
     <!-- Mobile Menu -->
-<div x-show="mobileMenuOpen" x-transition class="md:hidden bg-green-700">
+<div x-show="mobileMenuOpen" x-transition class="md:hidden bg-black">
     <nav class="flex flex-col p-4 space-y-2">
         <a href="{{ route('home') }}" class="block hover:text-gray-300 transition">Home</a>
 
@@ -121,6 +130,11 @@
         <a href="{{ route('gallery') }}" class="hover:text-green-600">Gallery</a>
         <a href="{{ route('posts.index') }}" class="block hover:text-gray-300 transition">News</a>
         <a href="#contact" class="block hover:text-gray-300 transition">Contact</a>
+        <a href="{{ route('shop.index') }}" 
+           class="border border-yellow-500 text-yellow-400 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 hover:text-black transition text-center">
+           <i class="fa-solid fa-cart-shopping"></i> Shop
+           
+        </a>
         <a href="{{ route('donate') }}" 
            class="bg-yellow-500 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition text-center">
             Donate

@@ -1,9 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+
+@include('components.page-hero', [
+    'title' => 'Donate',
+    'background' => 'images/about-banner.jpg',
+    'subtitle' => 'Support Olive Rugby'
+])
+
+
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 max-w-lg">
-        <h1 class="text-4xl font-bold text-center mb-6">Support Olive Rugby</h1>
+        <!-- <h1 class="text-4xl font-bold text-center mb-6">Support Olive Rugby</h1> -->
         <p class="text-center text-gray-600 mb-8">
             Choose a cause you want to support and help us grow rugby in our community.
         </p>

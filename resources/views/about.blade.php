@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+@include('components.page-hero', [
+    'title' => 'About Us',
+    'background' => 'images/about-banner.jpg',
+    'subtitle' => 'Building a legacy on and off the pitch'
+])
+
+
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 max-w-5xl">
         <!-- Heading -->
@@ -16,45 +25,67 @@
         </div>
 
         <!-- Vision -->
-        <div class="mb-12 text-center"  data-aos="fade-up">
-            <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Our Vision</h2>
-            <p class="text-gray-700">
-                To be the leading force in nurturing rugby excellence while creating opportunities for youth
-                to excel in sports and life.
-            </p>
-        </div>
-
-        <!-- Mission -->
-        <div class="mb-12 text-center" data-aos="fade-up" data-aos-delay="100">
-            <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Our Mission</h2>
-            <p class="text-gray-700">
-                To empower individuals through rugby by fostering skills, discipline, teamwork, and leadership.
-                We strive to positively impact our community through initiatives that inspire change and growth.
-            </p>
-        </div>
-
-        <!-- The Team -->
-        <div class="mb-12 text-center" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Meet the Team</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white shadow rounded-lg p-4 text-center">
-                    <img src="{{ asset('images/team1.jpg') }}" alt="Team Member" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
-                    <h3 class="font-bold">John Doe</h3>
-                    <p class="text-sm text-gray-500">Head Coach</p>
-                </div>
-                <div class="bg-white shadow rounded-lg p-4 text-center">
-                    <img src="{{ asset('images/team2.jpg') }}" alt="Team Member" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
-                    <h3 class="font-bold">Jane Smith</h3>
-                    <p class="text-sm text-gray-500">Assistant Coach</p>
-                </div>
-                <div class="bg-white shadow rounded-lg p-4 text-center">
-                    <img src="{{ asset('images/team3.jpg') }}" alt="Team Member" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
-                    <h3 class="font-bold">Mark Johnson</h3>
-                    <p class="text-sm text-gray-500">Team Captain</p>
-                </div>
+        <section class="py-5 bg-white container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="mb-12 text-center"  data-aos="fade-right" data-aos-delay="100">
+                <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Our Vision</h2>
+                <p class="text-gray-700">
+                    To be the leading force in nurturing rugby excellence while creating opportunities for youth
+                    to excel in sports and life for youth to excel in sports and life as a whole in general for a better world.
+                </p>
             </div>
-        </div>
 
+            <!-- Mission -->
+            <div class="mb-12 text-center" data-aos="fade-left" data-aos-delay="100">
+                <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Our Mission</h2>
+                <p class="text-gray-700">
+                    To empower individuals through rugby by fostering skills, discipline, teamwork, and leadership.
+                    We strive to positively impact our community through initiatives that inspire change and growth.
+                </p>
+            </div>
+        </section>
+
+        
+        <!-- The Team -->
+        <section class="py-1 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Meet the Team</h2>
+                    <div class="grid md:grid-cols-3 gap-10">
+                      <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transform transition">
+                        <img src="{{ asset('images/team1.jpg') }}" class="w-32 h-32 rounded-full mx-auto mb-4">
+                        <h3 class="text-xl font-bold">John Doe</h3>
+                        <p class="text-gray-500 mb-4">Founder</p>
+                        <div class="flex justify-center space-x-4 text-green-700">
+                          <i class="fab fa-linkedin"></i>
+                          <i class="fab fa-twitter"></i>
+                        </div>
+                      </div>
+
+                      <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transform transition">
+                        <img src="{{ asset('images/team1.jpg') }}" class="w-32 h-32 rounded-full mx-auto mb-4">
+                        <h3 class="text-xl font-bold">John Doe</h3>
+                        <p class="text-gray-500 mb-4">Co-Founder</p>
+                        <div class="flex justify-center space-x-4 text-green-700">
+                          <i class="fab fa-linkedin"></i>
+                          <i class="fab fa-twitter"></i>
+                        </div>
+                      </div>
+
+                      <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transform transition">
+                        <img src="{{ asset('images/team1.jpg') }}" class="w-32 h-32 rounded-full mx-auto mb-4">
+                        <h3 class="text-xl font-bold">John Doe</h3>
+                        <p class="text-gray-500 mb-4">Head of Affairs</p>
+                        <div class="flex justify-center space-x-4 text-green-700">
+                          <i class="fab fa-linkedin"></i>
+                          <i class="fab fa-twitter"></i>
+                        </div>
+                      </div>
+                      <!-- repeat for others -->
+                    </div>
+            </div>
+
+        </section>
+
+        <section class="py-20 bg-gray-50">
         <!-- Management -->
         <div data-aos="fade-up" data-aos-delay="300" class="text-center">
             <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Management</h2>
@@ -63,12 +94,13 @@
                 the pitch. From organizing matches to securing sponsorships, their dedication fuels our mission.
             </p>
         </div>
+        </section>
 
 
 
 
         <!-- Community Impact -->
-<section class="py-16 bg-white" data-aos="fade-up">
+<section class="py-5 bg-white" data-aos="fade-up">
     <div class="container mx-auto px-4 max-w-6xl">
         <h2 class="text-2xl font-bold mb-12 text-center text-green-800">Our Community Impact</h2>
 

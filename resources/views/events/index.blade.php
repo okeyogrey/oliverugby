@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+@include('components.page-hero', [
+    'title' => 'Events',
+    'background' => 'images/about-banner.jpg',
+    'subtitle' => 'Building a legacy on and off the pitch'
+])
+
+
 <section class="py-12">
     <div class="container mx-auto px-4">
         <!-- <h1 class="text-4xl font-bold mb-8">Upcoming & Past Events</h1> -->

@@ -9,9 +9,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DonateController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\PlayerController;
+
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+//Players
+Route::get('/players', [PlayerController::class, 'index'])->name('players.index');
+Route::get('/players/{player}', [PlayerController::class, 'show'])->name('players.show');
+Route::get('/players/{player}', [PlayerController::class, 'modal'])->name('players.modal');
+
 
 // Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
@@ -48,6 +57,12 @@ Route::get('/why-partner-with-us', function () {
 
 // Sponsorship kit form handler
 Route::post('/sponsor-request', [SponsorController::class, 'requestKit'])->name('sponsor.request');
+
+// Shop
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/shop/{product}', [ShopController::class, 'show'])->name('shop.show');
+Route::post('/shop/order', [ShopController::class, 'storeOrder'])->name('shop.order');
+
 
 // Dashboard (auth)
 Route::get('/dashboard', function () {
