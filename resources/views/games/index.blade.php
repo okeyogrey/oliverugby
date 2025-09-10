@@ -26,7 +26,7 @@
                                 <img src="{{ asset('storage/' . $game->poster) }}" alt="Match Poster" class="w-20 h-20 object-cover rounded">
                             @endif
                             <div>
-                                <h2 class="font-bold text-lg">{{ $game->home_team }} (Home) vs {{ $game->away_team }} (Away)</h2>
+                                <h2 class="font-bold text-sm md:text-lg">{{ $game->home_team }} (Home) vs {{ $game->away_team }} (Away)</h2>
                                 <p class="text-gray-600 text-sm">
                                     {{ $game->match_at->format('M d, Y H:i') }} — {{ $game->venue }}
                                 </p>
@@ -56,7 +56,7 @@
                                 <img src="{{ asset('storage/' . $game->poster) }}" alt="Match Poster" class="w-20 h-20 object-cover rounded">
                             @endif
                             <div>
-                                <h2 class="font-bold text-lg">{{ $game->home_team }} (Home) vs {{ $game->away_team }} (Away)</h2>
+                                <h2 class="font-bold text-sm md:text-lg">{{ $game->home_team }} (Home) vs {{ $game->away_team }} (Away)</h2>
                                 <p class="text-gray-600 text-sm">
                                     {{ $game->match_at->format('M d, Y H:i') }} — {{ $game->venue }}
                                 </p>

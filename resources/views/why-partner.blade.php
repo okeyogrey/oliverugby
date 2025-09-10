@@ -26,7 +26,7 @@
 
         <!-- Sponsorship Packages -->
         <div class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-green-800 mb-8">Sponsorship Packages</h2>
+            <h2 class="text-xl md:text-3xl font-bold text-center text-green-800 mb-8">Sponsorship Packages</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 @foreach ([
                     ['tier' => 'Gold', 'price' => '$5,000+', 'color' => 'bg-yellow-500'],
@@ -35,7 +35,7 @@
                 ] as $package)
                 <div class="relative rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <div class="{{ $package['color'] }} text-white text-center p-6">
-                        <h3 class="text-2xl font-bold">{{ $package['tier'] }} Sponsor</h3>
+                        <h3 class="text-lg md:text-2xl font-bold">{{ $package['tier'] }} Sponsor</h3>
                         <p class="mt-2 font-semibold">{{ $package['price'] }}</p>
                     </div>
                     <div class="bg-white p-6 text-gray-700">
@@ -53,7 +53,7 @@
 
         <!-- Brand Benefits -->
         <div class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-green-800 mb-8">Brand Benefits</h2>
+            <h2 class="text-xl md:text-3xl font-bold text-center text-green-800 mb-8">Brand Benefits</h2>
             <div class="grid md:grid-cols-4 gap-8 text-center">
                 <div>
                     <i class="fas fa-bullhorn text-4xl text-green-800 mb-4"></i>
@@ -80,7 +80,7 @@
 
         <!-- CTA Form -->
         <div class="bg-green-800 text-white rounded-lg p-8 shadow-lg max-w-2xl mx-auto" data-aos="fade-up">
-            <h2 class="text-2xl font-bold mb-4">Request a Sponsorship Kit</h2>
+            <h2 class="text-lg md:text-2xl font-bold mb-4">Request a Sponsorship Kit</h2>
             <p class="mb-6">Fill out the form below to receive our sponsorship proposal and package details.</p>
             <form action="{{ route('sponsor.request') }}" method="POST" class="space-y-4">
                 @csrf

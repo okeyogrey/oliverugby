@@ -16,6 +16,11 @@ use App\Http\Controllers\PlayerController;
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/contact', function () {return view('contact');})->name('contact');
+
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+
 //Players
 Route::get('/players', [PlayerController::class, 'index'])->name('players.index');
 Route::get('/players/{player}', [PlayerController::class, 'show'])->name('players.show');

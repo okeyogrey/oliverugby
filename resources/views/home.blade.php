@@ -29,12 +29,13 @@
                 <div x-show="currentIndex === index"
                      class="absolute bottom-16 text-center text-white z-30"
                      x-transition>
-                    <h1 class="text-3xl md:text-5xl font-bold mb-4" x-text="titles[index]"></h1>
-                    <p class="text-lg md:text-xl mb-6" x-text="subtitles[index]"></p>
+                    <h1 class="text-2xl md:text-4xl font-bold mb-4" x-text="titles[index]"></h1>
+                    <p class="text-sm md:text-lg mb-6" x-text="subtitles[index]"></p>
                     <a href="{{ route('games.index') }}" 
-                       class="bg-white text-green-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
+                       class="bg-white text-green-800 px-3 py-2 text-sm md:px-6 md:py-3 md:text-base rounded-full font-semibold hover:bg-gray-200 transition">
                        View Fixtures
                     </a>
+
                 </div>
             </div>
         </template>
@@ -51,13 +52,14 @@
     </button> -->
 
     <!-- Pagination dots -->
-    <div class="absolute bottom-6 flex space-x-3 z-30">
+    <div class="absolute bottom-6 flex space-x-2 md:space-x-3 z-30">
         <template x-for="(image, index) in images" :key="index">
             <button @click="goToSlide(index)"
-                :class="currentIndex === index ? 'bg-white scale-125' : 'bg-gray-500'"
-                class="w-3 h-3 rounded-full transition-all duration-300"></button>
+                :class="currentIndex === index ? 'bg-white scale-110 md:scale-125' : 'bg-gray-500'"
+                class="w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300"></button>
         </template>
     </div>
+
 </div>
 
 <script>
@@ -151,7 +153,7 @@ document.addEventListener('alpine:init', () => {
             <img src="{{ asset('images/rugby.jpg') }}" alt="About Olive Rugby" class="rounded-lg shadow-lg">
         </div>
         <div class="md:w-1/2">
-            <h2 class="text-3xl font-bold mb-6 text-center">About Us</h2>
+            <h2 class="text-lg md:text-2xl font-bold mb-6 text-center">About Us</h2>
             <p class="text-gray-700 mb-6">
                 Olive Rugby is dedicated to fostering talent, teamwork, and discipline through the game of rugby.
                 We aim to inspire youth, empower communities, and build a lasting legacy on and off the field.
@@ -175,19 +177,19 @@ document.addEventListener('alpine:init', () => {
             
             <!-- Card 1 -->
             <div class="bg-white p-8 rounded-lg shadow hover:shadow-lg transition">
-                <h3 class="text-4xl font-bold text-green-800 mb-2" x-text="players + '+'"></h3>
-                <p class="text-gray-700">Players Trained</p>
+                <h3 class="text-2xl md:text-4xl font-bold text-green-800 mb-2" x-text="players + '+'"></h3>
+                <p class="text-gray-700">Lives Impacted</p>
             </div>
 
             <!-- Card 2 -->
             <div class="bg-white p-8 rounded-lg shadow hover:shadow-lg transition">
-                <h3 class="text-4xl font-bold text-green-800 mb-2" x-text="events + '+'"></h3>
+                <h3 class="text-2xl md:text-4xl font-bold text-green-800 mb-2" x-text="events + '+'"></h3>
                 <p class="text-gray-700">Community Events</p>
             </div>
 
             <!-- Card 3 -->
             <div class="bg-white p-8 rounded-lg shadow hover:shadow-lg transition">
-                <h3 class="text-4xl font-bold text-green-800 mb-2" x-text="years + '+'"></h3>
+                <h3 class="text-2xl md:text-4xl font-bold text-green-800 mb-2" x-text="years + '+'"></h3>
                 <p class="text-gray-700">Years of Impact</p>
             </div>
 
@@ -232,7 +234,7 @@ document.addEventListener('alpine:init', () => {
 <!-- Upcoming Events -->
 <section class="py-12" data-aos="fade-up">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-6 text-center">Upcoming Events</h2>
+        <h2 class="text-lg md:text-2xl font-bold mb-6 text-center">Upcoming Events</h2>
         <div class="grid md:grid-cols-3 gap-6">
             @foreach($upcomingEvents as $event)
                 <div class="bg-white shadow rounded p-4 hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
@@ -253,7 +255,7 @@ document.addEventListener('alpine:init', () => {
 <!-- Sponsors Carousel -->
 <section class="py-12 bg-white relative" data-aos="fade-up">
     <div class="px-4">
-        <h2 class="text-3xl font-bold mb-6 text-center">Our Sponsors</h2>
+        <h2 class="text-lg md:text-2xl font-bold mb-6 text-center">Our Sponsors</h2>
     </div>
 
     <!-- Left Fade -->
@@ -305,7 +307,7 @@ document.addEventListener('alpine:init', () => {
 <!-- Merchandise -->
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4 max-w-6xl">
-        <h2 class="text-3xl font-bold text-center mb-12">Featured Merchandise</h2>
+        <h2 class="text-lg md:text-2xl font-bold text-center mb-12">Featured Merchandise</h2>
         
         <div class="flex space-x-6 overflow-x-auto pb-4">
             @foreach($featuredProducts as $product)
@@ -325,7 +327,7 @@ document.addEventListener('alpine:init', () => {
 <!-- Latest News -->
 <section class="py-12 bg-gray-50" data-aos="fade-up">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-6 text-center">Latest News</h2>
+        <h2 class="text-lg md:text-2xl font-bold mb-6 text-center">Latest News</h2>
         <div class="grid md:grid-cols-3 gap-6">
             @foreach($latestPosts as $post)
                 <div class="bg-white shadow rounded overflow-hidden hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
@@ -349,7 +351,7 @@ document.addEventListener('alpine:init', () => {
 @if($nextGame)
 <section class="bg-gray-100 py-12" data-aos="fade-up">
     <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-6 text-center">Next Game</h2>
+        <h2 class="text-lg md:text-2xl font-bold mb-6 text-center">Next Game</h2>
         @if($nextGame->poster)
             <img src="{{ asset('storage/' . $nextGame->poster) }}" class="mx-auto h-56 object-cover rounded mb-4" data-aos="zoom-in">
         @endif

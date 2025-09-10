@@ -70,7 +70,13 @@
         <span class="absolute left-0 bottom-0 w-full h-0.5 bg-yellow-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
     </a>
 
-    <a href="#contact" 
+    <a href="{{ route('players.index') }}" 
+       class="relative px-3 hover:text-gray-300 transition group">
+        Team
+        <span class="absolute left-0 bottom-0 w-full h-0.5 bg-yellow-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+    </a>
+
+    <a href="{{ route('contact') }}"
        class="relative px-3 hover:text-gray-300 transition group">
         Contact
         <span class="absolute left-0 bottom-0 w-full h-0.5 bg-yellow-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
@@ -129,7 +135,8 @@
 
         <a href="{{ route('gallery') }}" class="hover:text-green-600">Gallery</a>
         <a href="{{ route('posts.index') }}" class="block hover:text-gray-300 transition">News</a>
-        <a href="#contact" class="block hover:text-gray-300 transition">Contact</a>
+        <a href="{{ route('players.index') }}" class="block hover:text-gray-300 transition">Team</a>
+        <a href="{{ route('contact') }}" class="block hover:text-gray-300 transition">Contact</a>
         <a href="{{ route('shop.index') }}" 
            class="border border-yellow-500 text-yellow-400 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 hover:text-black transition text-center">
            <i class="fa-solid fa-cart-shopping"></i> Shop
